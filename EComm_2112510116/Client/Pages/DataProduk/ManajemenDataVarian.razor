@@ -1,0 +1,52 @@
+﻿@page "/manajemen-varian"
+@inject IVarianService VarianService
+@inject NavigationManager NavigationManager
+
+
+<h3>Manajemen Data Varian</h3>
+<br />
+<button class="btn btn-primary" @onclick="TambahVarian">Tambah Varian</button>
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Varian</th>
+            <th>Nama Produk</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var prod in VarianService.Varians)
+        {
+            <tr>
+                <td>@prod.IdVarian</td>
+                <th>@prod.Nama</th>
+                <td>
+                    <button class="btn btn-primary" @onclick="(()=> ShowVarian(prod.IdVarian))">
+                        <i class="oi oi-pencil"></i>
+                    </button>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await VarianService.GetAllVarian();
+    }
+
+    void ShowVarian(int id)
+    {
+        NavigationManager.NavigateTo($"manajemen-varian/edit/{id}");
+    }
+
+    void TambahVarian()
+    {
+        NavigationManager.NavigateTo("manajemen-varian/tambah");
+    }
+}

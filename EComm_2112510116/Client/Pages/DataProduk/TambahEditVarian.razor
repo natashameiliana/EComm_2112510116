@@ -1,0 +1,74 @@
+﻿@page "/manajemen-varian/tambah"
+@page "/manajemen-varian/edit/{id:int}"
+@inject IVarianService VarianService
+
+
+@if (Id == null)
+{
+    <PageTitle>Tambah Varian Baru</PageTitle>
+    <h3>Tambah Varian Baru</h3>
+}
+else
+{
+    <PageTitle>Edit Data @prod.Nama</PageTitle>
+    <h3>Edit Varian @prod.Nama</h3>
+}
+
+<EditForm Model="prod" OnInvalidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="from-group row">
+        <label for="Nama" class="col-sm-2 col-form-label">Nama</label>
+        <InputText id="Nama" @bind-Value="@prod.Nama" class="form-control"></InputText>
+        <ValidationMessage For="@(() => prod.Nama)" />
+    </div>
+
+    <br /><br />
+    <div class="from-group row">
+        <button type="submit" class="btn btn-primary form-control">@btnTxt</button>
+        <button type="button" class="btn btn-danger form-control" @onclick="HapusVarian">Hapus</button>
+    </div>
+
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public int? Id { get; set; }
+    string btnTxt = string.Empty;
+
+    Varian prod = new Varian();
+
+    protected override async Task OnInitializedAsync()
+    {
+        btnTxt = Id == null ? "Tambah Varian Baru" : "Ubah Varian";
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id != null)
+        {
+            prod = await VarianService.GetVarianById((int)Id);
+        }
+    }
+
+    public async void HandleSubmit()
+    {
+        if (Id == null)
+        {
+            await VarianService.CreateVarian(prod);
+        }
+
+        else
+        {
+            await VarianService.UpdateVarian(prod);
+        }
+    }
+
+    async Task HapusVarian()
+    {
+        await VarianService.DeleteVarian(prod.IdVarian);
+    }
+
+}

@@ -1,0 +1,50 @@
+﻿@page "/manajemen-kategori"
+@inject IKategoriService KategoriService
+@inject NavigationManager NavigationManager
+
+<h3>Manajemen Data Kategori</h3>
+<br />
+<button class="btn btn-primary" @onclick="TambahKategori">Tambah Kategori</button>
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Kategori</th>
+            <th>Nama Produk</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var prod in KategoriService.Kategoris)
+        {
+            <tr>
+                <td>@prod.IdKategori</td>
+                <td>@prod.Nama</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="(()=> ShowKategori(prod.IdKategori))">
+                        <i class="oi oi-pencil"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await KategoriService.GetAllKategori();
+    }
+
+    void ShowKategori(int id)
+    {
+        NavigationManager.NavigateTo($"manajemen-kategori/edit/{id}");
+    }
+
+    void TambahKategori()
+    {
+        NavigationManager.NavigateTo("manajemen-kategori/tambah");
+    }
+}
