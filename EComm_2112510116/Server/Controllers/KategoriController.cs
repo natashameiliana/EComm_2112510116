@@ -28,6 +28,7 @@ namespace EComm_2112510116.Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Kategori>> GetKategorisById(int id)
         {
+            var kategoris = await _context.Kategori.ToListAsync();
             var prod = kategoris.FirstOrDefault(p => p.IdKategori == id);
             if (prod == null)
             {

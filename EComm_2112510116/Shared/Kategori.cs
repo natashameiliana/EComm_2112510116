@@ -15,6 +15,6 @@ namespace EComm_2112510116.Shared
 
         [Required(ErrorMessage = "Nama Harus Diisi")]
         public string Nama { get; set; } = string.Empty;
-        public List<Produk> Produk { get; set; } = new List<Produk>();
+        //public List<Produk> Produk { get; set; } = new List<Produk>();
     }
 }

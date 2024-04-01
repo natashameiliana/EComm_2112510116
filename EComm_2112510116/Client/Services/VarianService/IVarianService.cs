@@ -11,6 +11,6 @@ namespace EComm_2112510116.Client.Services.VarianService
         //Create, Update, Delete
         Task CreateVarian(Varian varian);
         Task DeleteVarian(int Id);
-        Task UpdateVarian(Varian varian);
+        Task UpdateVarian(Varian varian, int Id);
     }
 }

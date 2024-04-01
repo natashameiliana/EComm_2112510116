@@ -19,6 +19,12 @@ else
     <ValidationSummary />
 
     <div class="from-group row">
+        <label for="IdVarian" class="col-sm-2 col-form-label">Id Varian</label>
+        <InputNumber id="IdVarian" @bind-Value="@Id" class="form-control"></InputNumber>
+        <ValidationMessage For="@(() => prod.IdVarian)" />
+    </div>
+
+    <div class="from-group row">
         <label for="Nama" class="col-sm-2 col-form-label">Nama</label>
         <InputText id="Nama" @bind-Value="@prod.Nama" class="form-control"></InputText>
         <ValidationMessage For="@(() => prod.Nama)" />
@@ -26,7 +32,7 @@ else
 
     <br /><br />
     <div class="from-group row">
-        <button type="submit" class="btn btn-primary form-control">@btnTxt</button>
+        <button type="submit" class="btn btn-primary form-control" @onclick="HandleSubmit">@btnTxt</button>
         <button type="button" class="btn btn-danger form-control" @onclick="HapusVarian">Hapus</button>
     </div>
 
@@ -62,13 +68,18 @@ else
 
         else
         {
-            await VarianService.UpdateVarian(prod);
+            await VarianService.UpdateVarian(prod,(int)Id);
         }
     }
 
     async Task HapusVarian()
     {
-        await VarianService.DeleteVarian(prod.IdVarian);
+        if (Id != null)
+        {
+            Console.WriteLine("Hapus Varian");
+            await VarianService.DeleteVarian((int)Id);
+        }
+        
     }
 
 }

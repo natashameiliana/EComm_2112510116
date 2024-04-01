@@ -12,7 +12,7 @@ namespace EComm_2112510116.Client.Services.KategoriService
             //Create, Update, Delete
             Task CreateKategori(Kategori kategori);
             Task DeleteKategori(int Id);
-            Task UpdateKategori(Kategori kategori);
+            Task UpdateKategori(Kategori kategori, int Id);
 
     }
     

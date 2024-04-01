@@ -26,6 +26,7 @@ namespace EComm_2112510116.Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Varian>> GetVariansById(int id)
         {
+            var varians = await _context.Varian.ToListAsync();
             var prod = varians.FirstOrDefault(p => p.IdVarian == id);
             if (prod == null)
             {

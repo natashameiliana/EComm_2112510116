@@ -48,19 +48,27 @@ namespace EComm_2112510116.Client.Services.KategoriService
         public async Task<Kategori> GetKategoriById(int id)
         {
             var result = await _http.GetFromJsonAsync<Kategori>($"api/Kategori/{id}");
-            if (result != null) { }
-            return result;
+            if (result != null) 
+            {
+                return result;
+            }
+            
             throw new Exception("Data Kategori Tidak Ditemukan");
         }
 
         
         //update
-        public async Task UpdateKategori(Kategori kategori)
+        public async Task UpdateKategori(Kategori kategori, int Id)
         {
-            var result = await _http.PutAsJsonAsync($"api/kategori/{kategori.IdKategori}", kategori);
+            var result = await _http.PutAsJsonAsync($"api/kategori/{Id}", kategori);
             var response = await result.Content.ReadFromJsonAsync<List<Kategori>>();
             Kategoris = response;
             _navigationManager.NavigateTo("/manajemen-kategori");
         }
+
+        //public Task UpdateKategori(Kategori kategori, int Id)
+        //{
+        //   throw new NotImplementedException();
+        //}
     }
 }

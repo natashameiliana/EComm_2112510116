@@ -19,6 +19,12 @@ else
     <ValidationSummary />
 
     <div class="from-group row">
+        <label for="IdKategori" class="col-sm-2 col-form-label">Id Kategori</label>
+        <InputNumber id="IdKategori" @bind-Value="@Id" class="form-control"></InputNumber>
+        <ValidationMessage For="@(() => prod.IdKategori)" />
+    </div>
+
+    <div class="from-group row">
         <label for="Nama" class="col-sm-2 col-form-label">Nama</label>
         <InputText id="Nama" @bind-Value="@prod.Nama" class="form-control"></InputText>
         <ValidationMessage For="@(() => prod.Nama)" />
@@ -26,7 +32,7 @@ else
 
     <br /><br />
     <div class="from-group row">
-        <button type="submit" class="btn btn-primary form-control">@btnTxt</button>
+        <button type="submit" class="btn btn-primary form-control" @onclick="HandleSubmit">@btnTxt</button>
         <button type="button" class="btn btn-danger form-control" @onclick="HapusKategori">Hapus</button>
     </div>
 
@@ -63,14 +69,19 @@ else
 
         else
         {
-            await KategoriService.UpdateKategori(prod);
+            await KategoriService.UpdateKategori(prod,(int)Id);
         }
 
     }
 
     async Task HapusKategori()
     {
-        await KategoriService.DeleteKategori(prod.IdKategori);
+        if (Id != null)
+        {
+            Console.WriteLine("Hapus Kategori");
+            await KategoriService.DeleteKategori((int)Id);
+        }
+        
     }
 
 }

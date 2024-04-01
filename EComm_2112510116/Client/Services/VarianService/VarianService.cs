@@ -49,14 +49,16 @@ namespace EComm_2112510116.Client.Services.VarianService
         public async Task<Varian> GetVarianById(int Id)
         {
             var result = await _http.GetFromJsonAsync<Varian>($"api/Varian/{Id}");
-            if (result != null) { }
-            return result;
+            if (result != null) 
+            {
+                return result;
+            }
             throw new Exception("Data Varian Tidak Ditemukan");
         }
 
-        public async Task UpdateVarian(Varian varian)
+        public async Task UpdateVarian(Varian varian, int Id)
         {
-            var result = await _http.PutAsJsonAsync($"api/varian/{varian.IdVarian}", varian);
+            var result = await _http.PutAsJsonAsync($"api/Varian/{Id}", varian);
             var response = await result.Content.ReadFromJsonAsync<List<Varian>>();
             Varians = response;
             _navigationManager.NavigateTo("/manajemen-varian");
