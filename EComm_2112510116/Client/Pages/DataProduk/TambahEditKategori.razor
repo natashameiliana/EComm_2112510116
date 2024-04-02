@@ -20,7 +20,7 @@ else
 
     <div class="from-group row">
         <label for="IdKategori" class="col-sm-2 col-form-label">Id Kategori</label>
-        <InputNumber id="IdKategori" @bind-Value="@Id" class="form-control"></InputNumber>
+        <InputNumber id="IdKategori" @bind-Value="@Id" class="form-control" readonly></InputNumber>
         <ValidationMessage For="@(() => prod.IdKategori)" />
     </div>
 

@@ -20,7 +20,7 @@ else
 
     <div class="from-group row">
         <label for="IdVarian" class="col-sm-2 col-form-label">Id Varian</label>
-        <InputNumber id="IdVarian" @bind-Value="@Id" class="form-control"></InputNumber>
+        <InputNumber id="IdVarian" @bind-Value="@Id" class="form-control" readonly></InputNumber>
         <ValidationMessage For="@(() => prod.IdVarian)" />
     </div>
 
