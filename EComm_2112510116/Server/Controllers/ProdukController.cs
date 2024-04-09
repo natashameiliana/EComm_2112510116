@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 namespace EComm_2112510116.Server.Controllers
 {
@@ -83,6 +84,21 @@ namespace EComm_2112510116.Server.Controllers
             await _context.SaveChangesAsync();
             return Ok(await GetDbProduk());
         }
+
+        [HttpGet("cari/{kataCari}")]
+        public async Task<ActionResult<List<Produk>>> SearchProduk(string kataCari)
+        {
+            var produks = await _context.Produk.Where(p => p.Nama.Contains(kataCari) || p.Deskripsi.Contains
+                (kataCari)).ToListAsync();
+
+            if (produks == null)
+            {
+                return NotFound("Data Produk Tidak Ditemukan");
+            }
+            return Ok(produks);
+
+        }
+
 
         }
     }

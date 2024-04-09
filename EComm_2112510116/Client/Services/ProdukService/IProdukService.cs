@@ -13,6 +13,7 @@ namespace EComm_2112510116.Client.Services.ProdukService
         Task CreateProduk(Produk produk);
         Task DeleteProduk(int Id);
         Task UpdateProduk(Produk produk);
+        Task<List<Produk>> SearchProduk(string kataCari);
 
     }
 }

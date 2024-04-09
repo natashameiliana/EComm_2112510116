@@ -62,5 +62,16 @@ namespace EComm_2112510116.Client.Services.ProdukService
             Produks = response;
             _navigationManager.NavigateTo("/manajemen-produk");
         }
+
+        //search produk
+        public async Task<List<Produk>> SearchProduk(string kataCari)
+        {
+            var result = await _http.GetFromJsonAsync<List<Produk>>($"api/Produk/cari/{kataCari}");
+            if (result != null)
+            
+                return result;
+            throw new Exception("Data Produk Tidak Ditemukan");
+            
+        }
     }
 }

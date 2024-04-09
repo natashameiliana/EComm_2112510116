@@ -1,0 +1,38 @@
+﻿@page "/detail-produk/{id:int}"
+@inject IProdukService ProdukService
+
+<div class="media">
+    <div class="media-img-big-wrapper mr-2">
+        <img class="media-img-big" src="@produk.GambarUrl" alt="@produk.Nama"/>
+    </div>
+
+    <div class="media-body">
+        <h2 class="mb-0">@produk.Nama</h2>
+        <p>@produk.Deskripsi</p>
+        @if(produk.HargaOriginal > produk.Harga)
+        {
+            <h6 class="text-muted original-price">Rp. @produk.HargaOriginal</h6>
+        }
+        <h4 class="price">Rp. @produk.Harga</h4>
+        <button class="btn btn-primary">
+            <i class="oi oi-cart"></i>
+            &nbsp;&nbsp;&nbsp;Tambah Keranjang
+        </button>
+
+    </div>
+
+</div>
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+    Produk produk = new Produk();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id != null)
+        {
+            produk = await ProdukService.GetProdukById((int)Id);
+        }
+    }
+}
